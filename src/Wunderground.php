@@ -5,7 +5,7 @@
  * @author Richard Lynskey <richard@mozor.net>
  * @copyright Copyright (c) 2012, Richard Lynskey
  * @license http://www.gnu.org/licenses/ GPLv3
- * @version 0.0.4
+ * @version 0.0.5
  *
  * Built 2016-03-20 09:59 CDT by richard
  *
@@ -99,7 +99,11 @@ class Wunderground
 
         $results = $this->apiCall(Methods::CONDITIONS . '/' . Methods::ALERTS, $location);
 
-        return (object)array_merge(['conditions' => (array)$results->current_observation], ['alerts' => (array)$results->alerts]);
+        $return = new \stdClass();
+        $return->conditions = $results->current_observation;
+        $return->alerts = $results->alerts;
+
+        return $return;
     }
 
     /**

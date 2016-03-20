@@ -5,7 +5,7 @@
  * @author Richard Lynskey <richard@mozor.net>
  * @copyright Copyright (c) 2012, Richard Lynskey
  * @license http://www.gnu.org/licenses/ GPLv3
- * @version 0.0.2
+ * @version 0.0.3
  *
  * Built 2016-03-20 09:59 CDT by richard
  *
@@ -65,7 +65,9 @@ class Wunderground
             $location = urlencode($arg1) . '/' . urlencode($arg2);
         }
 
-        return $this->apiCall(Methods::CONDITIONS, $location);
+        $results = $this->apiCall(Methods::CONDITIONS, $location);
+
+        return $results->current_observation;
     }
 
     /**

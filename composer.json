@@ -1,0 +1,16 @@
+{
+  "name": "richard4339/wunderground",
+  "description": "An extremely simple PHP Weather Underground API wrapper",
+  "keywords": ["weather", "weather underground", "wunderground"],
+  "type": "library",
+  "homepage": "https://github.com/richard4339/php-wunderground",
+  "authors": [
+    {
+      "name": "Richard Lynskey",
+      "homepage": "https://github.com/richard4339"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.0"
+  }
+}

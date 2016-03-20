@@ -53,7 +53,7 @@ class Wunderground
      * @param string $arg2 City if first argument is a state
      * @return mixed
      */
-    function currentConditions($arg1, $arg2)
+    function currentConditions($arg1, $arg2 = '')
     {
         if (empty($arg1)) {
             return $this->apiCall(Methods::CONDITIONS, 'CA/San_Francisco');

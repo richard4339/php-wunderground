@@ -5,7 +5,7 @@
  * @author Richard Lynskey <richard@mozor.net>
  * @copyright Copyright (c) 2012, Richard Lynskey
  * @license http://www.gnu.org/licenses/ GPLv3
- * @version 0.1
+ * @version 0.0.2
  *
  * Built 2016-03-20 09:59 CDT by richard
  *
@@ -25,23 +25,58 @@
  *
  */
 
+namespace Wunderground\Objects;
+
+/**
+ * Class Wunderground
+ * @package Wunderground\Objects
+ */
 class Wunderground
 {
 
+    /**
+     * @var string Weather Underground provided API key
+     */
     public $apikey;
 
+    /**
+     * Wunderground constructor.
+     * @param string $key API Key
+     */
     function __construct($key)
     {
         $this->apikey = urlencode($key);
     }
 
-    function currentConditions($location) {
-        if (empty($location))
-            return array();
+    /**
+     * @param string|int $arg1 State or zip code
+     * @param string $arg2 City if first argument is a state
+     * @return mixed
+     */
+    function currentConditions($arg1, $arg2)
+    {
+        if (empty($arg1)) {
+            return $this->apiCall(Methods::CONDITIONS, 'CA/San_Francisco');
+        }
 
-        $location = urlencode($location);
+        if (empty($arg2)) {
+            $location = urlencode($arg1);
+        } else {
+            $location = urlencode($arg1) . '/' . urlencode($arg2);
+        }
 
-        $json = file_get_contents('http://api.wunderground.com/api/'.$this->apikey.'/conditions/q/'.$location.'.json');
+        return $this->apiCall(Methods::CONDITIONS, $location);
+    }
+
+    /**
+     * @param Methods|string $method API method
+     * @param string $location url encoded location
+     * @return mixed
+     */
+    private function apiCall($method, $location)
+    {
+        $url = 'http://api.wunderground.com/api/' . $this->apikey . '/' . $method . '/q/' . $location . '.json';
+        $json = file_get_contents($url);
         return json_decode($json);
     }
 

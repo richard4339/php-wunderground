@@ -14,6 +14,6 @@
     "php": ">=5.3.0"
   },
   "autoload": {
-    "files": ["src/Wunderground.php"]
+    "files": ["src/Methods.php", "src/Wunderground.php"]
   }
 }

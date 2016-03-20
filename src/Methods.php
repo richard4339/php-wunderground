@@ -4,7 +4,7 @@
  * @author Richard Lynskey <richard@mozor.net>
  * @copyright Copyright (c) 2012, Richard Lynskey
  * @license http://www.gnu.org/licenses/ GPLv3
- * @version 0.1
+ * @version 0.0.4
  *
  * Built 2016-03-20 10:37 CDT by richard
  *
@@ -38,4 +38,11 @@ class Methods
      * @var string
      */
     const CONDITIONS = "conditions";
+
+    /**
+     * Retrieves alerts
+     *
+     * @var string
+     */
+    const ALERTS = "alerts";
 }

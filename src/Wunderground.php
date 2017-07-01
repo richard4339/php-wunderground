@@ -3,11 +3,11 @@
 /**
  * php-wunderground
  * @author Richard Lynskey <richard@mozor.net>
- * @copyright Copyright (c) 2012, Richard Lynskey
+ * @copyright Copyright (c) 2016-2017, Richard Lynskey
  * @license http://www.gnu.org/licenses/ GPLv3
- * @version 0.0.5
+ * @version 0.0.6
  *
- * Built 2016-03-20 09:59 CDT by richard
+ * Built 2017-07-01 14:49 CDT by richard
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
  *
  */
 
@@ -39,19 +38,44 @@ class Wunderground
     /**
      * @var string Weather Underground provided API key
      */
-    public $apikey;
+    public $apiKey;
+
+    /**
+     * @var string URL for the API calls
+     */
+    private $apiURL = 'https://api.wunderground.com/api/';
+
+    /**
+     * @var string File path for testing purposes
+     */
+    private $apiFilePath = '';
 
     /**
      * Wunderground constructor.
      * @param string $key API Key
-     * @throws InvalidArgumentException if an empty API key is provided.
+     * @param string $apiURL (Optional) URL for API calls
+     * @param string $filePath (Optional) file path to use for API calls, for testing purposes only
+     * @throws InvalidArgumentException if an empty API key is provided, or a file path is provided but is an invalid file
      */
-    function __construct($key)
+    function __construct($key, $apiURL = '', $filePath = '')
     {
         if (empty($key)) {
             throw new InvalidArgumentException('Wunderground class requires a valid API key');
         }
-        $this->apikey = urlencode($key);
+        $this->apiKey = urlencode($key);
+
+        if (!empty($apiURL)) {
+            $this->apiURL = $apiURL;
+        }
+
+        if (!empty($filePath)) {
+            if (!file_exists($filePath)) {
+                throw new InvalidArgumentException('File path does not exist');
+            }
+            $this->apiFilePath = $filePath;
+        }
+
+
     }
 
     /**
@@ -138,7 +162,11 @@ class Wunderground
      */
     private function apiCall($method, $location)
     {
-        $url = 'http://api.wunderground.com/api/' . $this->apikey . '/' . $method . '/q/' . $location . '.json';
+        if (!empty($this->apiFilePath)) {
+            $url = $this->apiFilePath;
+        } else {
+            $url = $this->apiURL . $this->apiKey . '/' . $method . '/q/' . $location . '.json';
+        }
         $json = file_get_contents($url);
         return json_decode($json);
     }

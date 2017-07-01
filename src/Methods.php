@@ -2,11 +2,11 @@
 /**
  * php-wunderground
  * @author Richard Lynskey <richard@mozor.net>
- * @copyright Copyright (c) 2012, Richard Lynskey
+ * @copyright Copyright (c) 2016-2017, Richard Lynskey
  * @license http://www.gnu.org/licenses/ GPLv3
- * @version 0.0.4
+ * @version 0.0.6
  *
- * Built 2016-03-20 10:37 CDT by richard
+ * Built 2017-07-01 14:49 CDT by richard
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
